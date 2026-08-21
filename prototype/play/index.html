@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <script>
+    (function ensurePlayDir() {
+      const path = location.pathname;
+      if (path.endsWith('/index.html')) {
+        location.replace(path.slice(0, -10) + location.search + location.hash);
+        return;
+      }
+      if (!path.endsWith('/')) {
+        location.replace(path + '/' + location.search + location.hash);
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="color-scheme" content="light">
+  <title>三命无常 · V1 玩家前端</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d3e3b'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='38' fill='%23e2b965'%3E命%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="game.css?v=20260812-11">
+  <link rel="stylesheet" href="delivery-v2.css?v=20260812-11">
+</head>
+<body>
+  <main id="app" data-layer="SOURCE_BASELINE">
+    <section class="screen boot-screen active" data-screen="boot" data-route-id="BOOT_SHELL">
+      <div class="boot-mark">命</div>
+      <h1>三命无常</h1>
+      <p id="boot-copy">正在校验规则与资源</p>
+      <div class="boot-progress"><i id="boot-progress"></i></div>
+      <button class="btn primary" id="boot-retry" data-action="retry-boot" hidden>重试</button>
+    </section>
+
+    <section class="screen lobby-screen" data-screen="lobby" data-route-id="LOBBY">
+      <div class="lobby-scene" aria-hidden="true"><img src="../assets/entity/H009/foreground-v2.png" alt=""></div>
+      <header class="lobby-header game-panel">
+        <button class="identity" data-action="go-profile">
+          <img src="../assets/entity/H009/avatar-512.png" alt="玩家头像">
+          <span><b>无常客 · #8F27</b><small id="lobby-realm">金丹 · 36级</small></span>
+        </button>
+        <div class="lobby-quick-actions">
+          <button class="icon-control" data-action="help" aria-label="玩法帮助">?</button>
+          <button class="icon-control" data-action="go-settings" aria-label="设置">⚙</button>
+        </div>
+      </header>
+      <button class="reconnect-card game-panel" id="reconnect-card" hidden data-action="reconnect-match">
+        <span><b>未完成对局</b><small>席位仍有效，点击继续</small></span><i>继续对局</i>
+      </button>
+      <article class="match-plaque game-panel">
+        <p class="eyebrow">30人 · SOLO · CN同池</p>
+        <h2>百眼迷城</h2>
+        <p>CN三端同服。三条命，最终仍未淘汰者获胜。</p>
+        <button class="btn primary xl" data-action="start-match"><b>开始对战</b><small>30人单排 · 自动匹配低延迟对局</small></button>
+        <div class="plaque-rule"><span>CN三端同服</span><span>无组队</span><span>无文字社交</span></div>
+      </article>
+      <nav class="lobby-nav game-panel" aria-label="主导航">
+        <button data-action="go-growth"><i>修</i><span>成长</span></button>
+        <button data-action="go-profile"><i>录</i><span>个人</span></button>
+        <button data-action="go-ranking"><i>榜</i><span>排行榜</span></button>
+        <button data-action="go-settings"><i>设</i><span>设置</span></button>
+      </nav>
+      <div class="queue-float game-panel" id="queue-float" hidden aria-live="polite">
+        <div class="queue-orbit"></div><div><b>正在寻找对局</b><span id="queue-state">优先匹配低延迟玩家</span><small id="queue-eta">预计等待时间计算中</small></div>
+        <strong id="queue-time">00:00</strong><button class="btn ghost" data-action="cancel-queue">取消</button>
+      </div>
+    </section>
+
+    <section class="screen select-screen" data-screen="select" data-route-id="HERO_SELECT">
+      <header class="select-header game-panel">
+        <div><p class="eyebrow">本局英雄</p><h2>三选一</h2></div>
+        <div class="match-wallet"><span>本局金币</span><b data-match-gold>500</b></div>
+        <strong class="round-timer" id="select-timer">15</strong>
+      </header>
+      <div class="hero-offers" id="hero-offers"></div>
+      <footer class="select-actions game-panel">
+        <button class="btn secondary" data-action="reroll-offers">整组重随 · 250金</button>
+        <button class="select-status-action" id="select-status" data-action="selected-hero-detail" disabled>15秒后自动选择推荐英雄</button>
+        <button class="btn primary" data-action="confirm-hero" disabled>锁定并进入战斗</button>
+      </footer>
+    </section>
+
+    <section class="screen loading-screen" data-screen="loading" data-route-id="MATCH_LOADING">
+      <div class="loading-card game-panel">
+        <img id="loading-hero" src="../assets/entity/H009/card-v3.png" alt="所选英雄">
+        <div><p class="eyebrow">席位已锁定</p><h2 id="loading-name">孙悟空</h2><span id="loading-active">专属主动 · 大闹天宫</span>
+          <div class="loading-bar"><i id="loading-bar"></i></div><b id="loading-copy">正在验证本局规则</b>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen battle-screen" data-screen="battle" data-route-id="BATTLE">
+      <div class="stage" id="battle-stage">
+        <div class="battle-world">
+          <div class="world-atmosphere" aria-hidden="true"></div>
+          <svg class="battle-terrain" id="battle-terrain" aria-label="当前镜头内的道路、墙体、高台、坡道与区域地形"></svg>
+          <div class="storm-visual" id="storm-visual" role="status" aria-live="assertive" aria-atomic="true" hidden>
+            <i class="storm-bolt b1"></i><i class="storm-bolt b2"></i><i class="storm-bolt b3"></i>
+            <section class="storm-alert-card" aria-label="天劫危险提示">
+              <header><span class="storm-alert-icon">雷</span><em id="storm-danger-level">高危区域</em><b id="storm-visual-title">天劫圈外</b></header>
+              <div class="storm-alert-metrics">
+                <span><small>距安全区</small><strong id="storm-distance-copy">--</strong></span>
+                <span><small>下次雷击</small><strong id="storm-strike-copy">--</strong></span>
+                <span><small>单次伤害</small><strong id="storm-damage-copy">--</strong></span>
+              </div>
+              <p id="storm-direction-copy">立即向安全区移动</p>
+              <small id="storm-visual-copy">雷击将在下一判定周期降临</small>
+            </section>
+          </div>
+          <div class="battle-critical-alert" id="battle-critical-alert" role="alert" aria-live="assertive" hidden><i>!</i><span><b id="critical-alert-title">生命危急</b><small id="critical-alert-copy">优先脱离战斗并寻找恢复或护盾</small></span></div>
+          <div class="camera-metric" aria-label="战斗镜头米制比例"><b>20m</b><i></i><small id="camera-coordinate">X 0 · Y 0</small></div>
+          <div class="safe-ring" id="world-safe-ring" aria-hidden="true"></div>
+          <div class="storm-boundary-guide" id="storm-boundary-guide" aria-hidden="true" hidden><i></i><b>安全区边界</b><small>--</small></div>
+          <div class="world-player"><i class="combat-range-ring attack-range-ring" aria-hidden="true"></i><i class="combat-range-ring cast-range-ring" aria-hidden="true"></i><span></span><img id="world-hero" src="../assets/entity/H009/avatar-512.png" alt="我方英雄"><b>你</b><i class="player-facing"></i></div>
+          <div class="world-enemy" id="world-enemy"><span class="enemy-element">火</span><i class="enemy-hp"><b></b></i><img src="../assets/entity/H002/avatar-512.png" alt="敌方英雄"><small>红孩儿 · Lv.1</small></div>
+        <div class="sim-actors" id="sim-actors" aria-label="附近玩家与战斗实体"></div>
+        <div class="sim-projectiles" id="sim-projectiles" aria-hidden="true"></div>
+        <div class="world-loot" id="world-loot" aria-label="公开地面掉落"></div>
+        <div class="world-chests" id="world-chests" aria-label="普通宝箱与空投宝箱"></div>
+        <div class="world-merchants" id="world-merchants" aria-label="附近商店与服务"></div>
+        <div class="world-pve-entities" id="world-pve-entities" aria-label="怪物与首领实体"></div>
+        <div class="world-skill-entities" id="world-skill-entities" aria-label="玩家技能实体"></div>
+        <div class="world-summons" id="world-summons" aria-label="玩家召唤与分身实体"></div>
+          <button class="world-monster" id="world-monster" data-action="inspect-world-target" data-target="monster" aria-label="查看金肥猪状态"><img src="../assets/monsters/runtime/MVS_023/portrait.webp" alt="金肥猪"><i class="monster-alert">!</i><b>金肥猪</b><small>巡逻 · Lv.2</small></button>
+          <div class="world-poi-marker" id="world-poi-marker"><i></i><b>技能书</b><small>12m</small></div>
+          <div class="aim-reticle" id="aim-reticle" aria-hidden="true"><i></i></div>
+          <div class="live-aim" id="live-aim" hidden aria-live="polite"><i class="aim-origin-live"></i><i class="aim-path-live"></i><i class="aim-shape-live"></i><i class="aim-point-live"></i><b>松手施放</b><small>拖入取消区可取消</small></div>
+          <div class="visibility-demo" id="visibility-demo" hidden aria-label="迷雾信息状态"></div>
+          <div class="world-vfx" id="world-vfx"></div><div class="combat-number" id="combat-number"></div>
+        </div>
+
+        <button class="player-hud game-panel" data-action="inspect-self" aria-label="查看自己的完整状态">
+          <img id="hud-hero" src="../assets/entity/H009/avatar-512.png" alt="英雄头像">
+          <div class="player-bars"><div class="hud-level"><b id="hud-level">Lv.1</b><span id="hud-element">金</span></div>
+            <div class="meter hp-meter"><i id="hp-fill"></i><span id="hp-copy">488 / 488</span></div>
+            <div class="meter shield-meter"><i id="shield-fill"></i><span id="shield-copy">护盾 0</span></div>
+            <div class="meter xp-meter"><i id="xp-fill"></i></div>
+            <div class="hud-stats" aria-label="攻击与移动速度"><span><b id="hud-attack">攻击 0</b></span><span><b id="hud-speed">移速 0.00m/s</b></span></div>
+          </div>
+          <div class="life-pips" id="life-pips"><i>命</i><i>命</i><i>命</i></div>
+        </button>
+
+        <section class="storm-hud game-panel"><span id="phase-name">全图发育 · r520</span><b id="battle-clock">00:00</b><small><span id="storm-label">距第一收缩</span> <i id="storm-clock">05:00</i></small></section>
+        <section class="resource-hud game-panel"><span>金 <b data-match-gold>500</b></span><span class="gem-wallet" data-gem-visual="faceted-crystal"><svg class="gem-icon-svg" viewBox="0 0 64 64" aria-hidden="true"><path class="gem-halo" d="M32 3 55 16 60 40 45 59 19 59 4 40 9 16Z"/><path class="gem-crystal" d="M32 8 51 20 46 47 32 57 18 47 13 20Z"/><path class="gem-facet top" d="M13 20 32 8 51 20 32 28Z"/><path class="gem-facet left" d="M13 20 32 28 32 57 18 47Z"/><path class="gem-facet right" d="M51 20 32 28 32 57 46 47Z"/><path class="gem-glint" d="M22 19 31 14 27 24Z"/></svg><span>技能宝石</span> <b data-match-gems>0</b></span></section>
+        <button class="minimap game-panel" data-action="open-map" aria-label="打开地图"><span>北</span><i class="map-self"></i><i class="map-poi"></i><i class="map-storm"></i></button>
+        <div class="status-row" id="status-row" aria-label="当前状态"></div>
+        <div class="battle-announcement game-panel" id="battle-announcement">进入百眼迷城</div>
+        <section class="journey-goal game-panel" id="journey-goal" hidden aria-live="polite">
+          <i id="journey-step">1/3</i><span><b id="journey-title">移动角色</b><small id="journey-copy">先移动一步，熟悉角色位置。</small></span><button data-action="dismiss-journey" aria-label="收起当前目标">×</button>
+        </section>
+        <section class="population-hud game-panel" aria-label="对局存活状态"><b id="population-alive">30</b><small>/30 存活</small><span id="population-nearby">附近 7</span></section>
+        <section class="motion-hud game-panel" id="motion-hud" aria-label="当前动作状态"><i id="motion-icon">行</i><div><b id="motion-state">自由移动</b><small id="motion-detail">WASD / 左摇杆控制</small></div></section>
+        <section class="shop-radar game-panel" id="shop-radar" aria-label="商店到达和营业状态"><i>店</i><div><b id="shop-radar-title">土地公 A 即将到达</b><small id="shop-radar-copy">00:30开放 · 地图已有预告标记</small></div></section>
+        <div class="combat-feed" id="combat-feed" aria-live="polite"></div>
+        <button class="boss-target game-panel" id="boss-target" data-action="inspect-world-target" data-target="boss" hidden aria-label="查看世界首领">
+          <img src="../assets/summon/CORE_MIRROR/portrait.png" alt="核心首领"><div><span id="boss-name">核心首领 · 镜世妖核</span><i><b id="boss-hp"></b></i><small id="boss-state">万劫三庭 · 公开目标</small></div>
+        </button>
+        <div class="world-warning" id="world-warning" hidden><b id="warning-title">天劫逼近</b><span id="warning-copy">安全区即将收缩</span></div>
+        <section class="target-frame game-panel" id="target-frame" hidden aria-label="锁定目标战斗状态">
+          <img id="target-frame-avatar" src="../assets/entity/H002/avatar-512.png" alt="目标头像"><div><span><b id="target-frame-name">红孩儿 · Lv.1</b><em id="target-frame-range">12m · 同层</em></span><i><b id="target-frame-hp"></b></i><small id="target-frame-state">火 · 可锁定 · 构筑未知</small></div><span class="target-frame-tools"><strong id="target-frame-lock">2.0s</strong><button data-action="inspect-combat-target" aria-label="查看锁定目标公开详情">详情</button></span>
+        </section>
+        <aside class="world-sheet" id="world-sheet" hidden aria-live="polite">
+          <header><div><p id="world-sheet-kicker">交互</p><h2 id="world-sheet-title">详情</h2></div><button data-action="close-world-sheet" aria-label="关闭局内面板">×</button></header>
+          <div class="world-sheet-body" id="world-sheet-body"></div>
+        </aside>
+        <section class="channel-hud game-panel" id="channel-hud" hidden aria-label="交互引导">
+          <div><b id="channel-title">正在引导</b><small id="channel-copy">移动允许 · 受玩家伤害中断</small></div><i><b id="channel-fill"></b></i><button data-action="cancel-input">取消</button>
+        </section>
+
+        <section class="build-strip game-panel" aria-label="本局构筑">
+          <div class="build-group passives"><label>被动</label><div id="passive-slots"></div></div>
+          <div class="build-group equipment"><label>装备</label><div id="equipment-slots"></div></div>
+          <div class="build-group hand"><label>手牌</label><div id="hand-slots"></div></div>
+          <div class="build-group active"><label>主动</label><div id="active-slot"></div></div>
+        </section>
+
+        <section class="mobile-build-summary" aria-label="手机本局构筑摘要">
+          <button class="mobile-build-passives" data-action="toggle-build" aria-label="查看四个被动"><span>被动</span><i id="mobile-passive-summary"></i></button>
+          <button class="mobile-build-equipment" data-action="toggle-build" aria-label="查看三件身穿装备"><span>身穿</span><i id="mobile-equipment-summary"></i></button>
+          <button class="mobile-build-hand" data-action="toggle-build" aria-label="查看手牌容量"><span>手牌</span><b id="mobile-hand-capacity">0/1</b></button>
+        </section>
+        <div class="mobile-context-copy" id="mobile-context-copy" hidden><b>附近可交互</b><span></span></div>
+
+        <button class="context-action game-panel" id="context-action" data-action="interact" hidden><kbd>E</kbd><span><b>交互</b><small></small></span></button>
+        <div class="pc-inputs"><span>WASD 移动</span><span>LMB 普攻</span><span>RMB 主动</span><span>E 交互</span><span>M 地图</span><span>按住TAB 构筑</span></div>
+        <div class="mobile-inputs" aria-label="手机战斗控制">
+          <div class="joystick" data-control="move"><i></i></div>
+          <button class="touch attack" data-action="basic-attack">普攻</button>
+          <button class="touch active" data-action="cast-active">主动</button>
+          <button class="touch interact" data-action="interact">交互</button>
+          <button class="touch cancel" data-action="cancel-input">取消</button>
+          <button class="touch build" data-action="toggle-build">构筑</button>
+        </div>
+        <button class="battle-menu-button" data-action="open-battle-menu" aria-label="对局菜单">☰</button>
+      </div>
+      <div class="side-decoration left"></div><div class="side-decoration right"></div>
+    </section>
+
+    <section class="screen meta-screen" data-screen="growth" data-route-id="GROWTH">
+      <header class="meta-header game-panel"><button data-action="go-lobby">‹ 大厅</button><div><p class="eyebrow">成长</p><h2>修为与图鉴</h2></div></header>
+      <div class="meta-tabs"><button class="active" data-meta-tab="cultivation">修为</button><button data-meta-tab="codex">图鉴</button></div>
+      <div class="meta-content" id="growth-content"></div>
+    </section>
+
+    <section class="screen meta-screen" data-screen="profile" data-route-id="PROFILE">
+      <header class="meta-header game-panel"><button data-action="go-lobby">‹ 大厅</button><div><p class="eyebrow">个人</p><h2>身份与最近对局</h2></div></header>
+      <div class="profile-layout" id="profile-content"></div>
+    </section>
+
+    <section class="screen meta-screen" data-screen="ranking" data-route-id="RANKING" data-layer="SOURCE_NOT_AUTHORIZED">
+      <header class="meta-header game-panel"><button data-action="go-lobby">‹ 大厅</button><div><p class="eyebrow">全球单人竞技</p><h2>排行榜</h2></div><span id="rank-snapshot">最近更新</span></header>
+      <div class="rank-tabs"><button class="active" data-rank-tab="wins">总胜场</button><button data-rank-tab="rate">胜率</button></div>
+      <div class="rank-shell" id="rank-content"></div>
+    </section>
+
+    <section class="screen meta-screen settings-screen" data-screen="settings" data-route-id="SETTINGS">
+      <header class="meta-header game-panel"><button data-action="settings-back">‹ 返回</button><div><p class="eyebrow">设置</p><h2>游戏设置</h2></div><span id="save-state">逐项自动保存</span></header>
+      <div class="settings-layout"><nav id="settings-nav"></nav><div id="settings-content"></div></div>
+      <button class="settings-reset-current" data-action="reset-settings">恢复当前分类默认</button>
+    </section>
+
+    <section class="screen meta-screen" data-screen="account" data-route-id="ACCOUNT_SECURITY">
+      <header class="meta-header game-panel"><button data-action="nav-back">‹ 设置</button><div><p class="eyebrow">账号安全</p><h2>保护与设备</h2></div></header>
+      <div class="account-layout" id="account-content"></div>
+    </section>
+
+    <section class="screen meta-screen store-screen" data-screen="store" data-route-id="STORE_COSMETIC_ONLY" data-layer="SOURCE_BASELINE">
+      <header class="meta-header game-panel"><button data-action="go-lobby">‹ 关闭隔离预览</button><div><p class="eyebrow">S-HOLD-05 · STORE_DISABLED</p><h2>商城布局预览</h2></div></header>
+      <div class="store-tabs"><button class="active" data-store-tab="skin">英雄皮肤</button><button data-store-tab="mount">飞行坐骑</button><button data-store-tab="revive">复活币</button></div>
+      <div class="store-content" id="store-content"></div>
+    </section>
+  </main>
+
+  <div class="overlay" id="modal-layer" hidden><div class="modal game-panel" role="dialog" aria-modal="true"><header><div><p class="eyebrow" id="modal-kicker"></p><h2 id="modal-title"></h2></div><button data-action="close-modal" aria-label="关闭">×</button></header><div id="modal-content"></div></div></div>
+  <div class="system-overlay" id="system-overlay" hidden><div class="system-card game-panel" id="system-content"></div></div>
+  <div class="orientation-block"><b>请旋转设备</b><span>《三命无常》手机版仅支持横屏</span></div>
+  <div id="toast-region" aria-live="polite"></div>
+  <button id="qa-button" data-action="toggle-qa" hidden>V1验收</button>
+  <aside id="qa-panel" hidden data-layer="PROTOTYPE_ONLY"><header><b>V1状态验收</b><button data-action="toggle-qa">×</button></header><div id="qa-content"></div></aside>
+
+  <script id="source-visual-audit-json" type="application/json"></script>
+  <script id="world-source-json" type="application/json"></script>
+  <script id="source-rule-projection-json" type="application/json"></script>
+  <script id="monster-visual-manifest-json" type="application/json"></script>
+  <script id="audio-runtime-manifest-json" type="application/json"></script>
+  <script src="game.js?v=20260821-studio"></script>
+  <script src="../../src/js/bridge/play-bridge.js"></script>
+</body>
+</html>

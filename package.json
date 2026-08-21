@@ -1,0 +1,9 @@
+{
+  "name": "sanming",
+  "private": true,
+  "description": "三命无常 V1 设计原型 · GitHub Pages 工作台",
+  "scripts": {
+    "start": "npx --yes serve . -l 4173",
+    "dev": "npx --yes serve . -l 4173"
+  }
+}

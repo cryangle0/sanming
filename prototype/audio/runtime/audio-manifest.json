@@ -1,0 +1,221 @@
+{
+  "schema": "sanming-runtime-audio-v1",
+  "package": "三命无常_中文易读版_20260813",
+  "sourceCount": 484,
+  "runtimeAssetCount": 11,
+  "licenseState": "PREVIEW_NOT_COMMERCIAL",
+  "licenseNotice": "原包README声明为ElevenLabs免费套餐预览产物；正式商业发行前必须补齐全球商业发行及转授权证明。",
+  "unlockPolicy": "FIRST_POINTER_OR_KEY_GESTURE",
+  "assets": {
+    "ui_confirm": {
+      "kind": "ui",
+      "alias": "confirm",
+      "file": "audio/runtime/ui/ui_confirm.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.62,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_confirm.wav",
+      "durationS": 0.48,
+      "peakDbfs": -3,
+      "rmsDbfs": -19.817,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_cancel": {
+      "kind": "ui",
+      "alias": "cancel",
+      "file": "audio/runtime/ui/ui_cancel.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.52,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_cancel.wav",
+      "durationS": 0.48,
+      "peakDbfs": -5.277,
+      "rmsDbfs": -23.196,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_error": {
+      "kind": "ui",
+      "alias": "error",
+      "file": "audio/runtime/ui/ui_error.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.62,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_error.wav",
+      "durationS": 0.48,
+      "peakDbfs": -5.907,
+      "rmsDbfs": -25.936,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_pickup": {
+      "kind": "ui",
+      "alias": "pickup",
+      "file": "audio/runtime/ui/ui_pickup.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.58,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_pickup.wav",
+      "durationS": 0.48,
+      "peakDbfs": -6.037,
+      "rmsDbfs": -23.118,
+      "reviewNote": "50ms尾部淡出保留"
+    },
+    "ui_book": {
+      "kind": "ui",
+      "alias": "book",
+      "file": "audio/runtime/ui/ui_book.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.62,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_book.wav",
+      "durationS": 0.48,
+      "peakDbfs": -3.665,
+      "rmsDbfs": -20.555,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_equip": {
+      "kind": "ui",
+      "alias": "equip",
+      "file": "audio/runtime/ui/ui_equip.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.6,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_equip.wav",
+      "durationS": 0.48,
+      "peakDbfs": -3,
+      "rmsDbfs": -18.881,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_shop_buy": {
+      "kind": "ui",
+      "alias": "buy",
+      "file": "audio/runtime/ui/ui_shop_buy.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.62,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_shop_buy.wav",
+      "durationS": 0.48,
+      "peakDbfs": -3.426,
+      "rmsDbfs": -20.478,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_shop_sell": {
+      "kind": "ui",
+      "alias": "sell",
+      "file": "audio/runtime/ui/ui_shop_sell.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.58,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_shop_sell.wav",
+      "durationS": 0.48,
+      "peakDbfs": -3,
+      "rmsDbfs": -20.171,
+      "reviewNote": "技术验收通过"
+    },
+    "ui_respawn": {
+      "kind": "ui",
+      "alias": "respawn",
+      "file": "audio/runtime/ui/ui_respawn.wav",
+      "mime": "audio/wav",
+      "loop": false,
+      "volume": 0.6,
+      "status": "PROTOTYPE_APPROVED",
+      "sourceEnglishName": "ui_respawn.wav",
+      "durationS": 1.2,
+      "peakDbfs": -3,
+      "rmsDbfs": -25.61,
+      "reviewNote": "技术验收通过"
+    },
+    "music_lobby": {
+      "kind": "music",
+      "file": "audio/runtime/music/mus_lobby.ogg",
+      "mime": "audio/ogg",
+      "loop": true,
+      "volume": 0.34,
+      "status": "PROTOTYPE_ONLY",
+      "sourceEnglishName": "mus_lobby.wav",
+      "durationS": 30,
+      "peakDbfs": -3,
+      "rmsDbfs": -20.133,
+      "reviewNote": "原型可用；需重新母带至-16 LUFS并补商业授权"
+    },
+    "ambience_map": {
+      "kind": "ambience",
+      "file": "audio/runtime/ambience/amb_map_general.ogg",
+      "mime": "audio/ogg",
+      "loop": true,
+      "volume": 0.24,
+      "status": "PROTOTYPE_ONLY",
+      "sourceEnglishName": "amb_map_general.wav",
+      "durationS": 30,
+      "peakDbfs": -3,
+      "rmsDbfs": -20.677,
+      "reviewNote": "响度接近环境目标；正式发行前仍需商业授权"
+    }
+  },
+  "excluded": [
+    {
+      "id": "music_match",
+      "sourceEnglishName": "mus_match.wav",
+      "reason": "实测约-70 LUFS、峰值-50.663 dBFS，等效近静音；禁止靠运行时提升数十dB补救",
+      "severity": "BLOCKER"
+    },
+    {
+      "id": "music_final",
+      "sourceEnglishName": "mus_final.wav",
+      "reason": "实测约-70 LUFS、峰值-60.206 dBFS，等效近静音；禁止靠运行时提升数十dB补救",
+      "severity": "BLOCKER"
+    },
+    {
+      "id": "ui_result",
+      "sourceEnglishName": "ui_result.wav",
+      "reason": "RMS -37.18 dBFS且尾部近静音，相比同组UI明显过弱，继续使用合成降级音直至返工",
+      "severity": "SERIOUS"
+    },
+    {
+      "id": "sfx_act_h002_loop_v02",
+      "sourceEnglishName": "sfx_act_h002_loop_v02.wav",
+      "reason": "循环接缝差 -20.735 dBFS，高于-24 dBFS验收阈值",
+      "severity": "SERIOUS"
+    },
+    {
+      "id": "sfx_act_h018_loop_v01",
+      "sourceEnglishName": "sfx_act_h018_loop_v01.wav",
+      "reason": "循环接缝差 -20.411 dBFS，高于-24 dBFS验收阈值",
+      "severity": "SERIOUS"
+    },
+    {
+      "id": "sfx_act_h018_loop_v02",
+      "sourceEnglishName": "sfx_act_h018_loop_v02.wav",
+      "reason": "循环接缝差 -19.504 dBFS，高于-24 dBFS验收阈值",
+      "severity": "SERIOUS"
+    },
+    {
+      "id": "sfx_act_h036_loop_v02",
+      "sourceEnglishName": "sfx_act_h036_loop_v02.wav",
+      "reason": "循环接缝差 -19.923 dBFS，高于-24 dBFS验收阈值",
+      "severity": "SERIOUS"
+    }
+  ],
+  "mix": {
+    "masterDefault": 0.8,
+    "musicDefault": 0.6,
+    "sfxDefault": 0.8,
+    "uiDefault": 0.7,
+    "noSoundTriggers": [
+      "hover",
+      "scroll",
+      "mapDrag",
+      "modalOpen",
+      "disabledAction",
+      "predictedImpact"
+    ]
+  }
+}

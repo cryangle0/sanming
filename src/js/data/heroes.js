@@ -1,0 +1,347 @@
+export const HEROES = Object.freeze([
+  {
+    "id": "H001",
+    "name": "铁扇公主",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H002",
+    "name": "红孩儿",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H003",
+    "name": "蜘蛛精",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H004",
+    "name": "蝎子精",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H005",
+    "name": "多目怪",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H006",
+    "name": "九头虫",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H007",
+    "name": "黄风怪",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H008",
+    "name": "太上老君",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H009",
+    "name": "孙悟空",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png",
+      "foreground-v2.png"
+    ]
+  },
+  {
+    "id": "H010",
+    "name": "二郎神",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H011",
+    "name": "哪吒",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H012",
+    "name": "六耳猕猴",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H013",
+    "name": "大鹏雕",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H014",
+    "name": "白骨精",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H015",
+    "name": "猪八戒",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H016",
+    "name": "白龙马",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H017",
+    "name": "青狮怪",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H018",
+    "name": "牛魔王",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H019",
+    "name": "独角兕大王",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H020",
+    "name": "黄眉老祖",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H021",
+    "name": "金角大王",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H022",
+    "name": "银角大王",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H023",
+    "name": "黄袍怪",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H024",
+    "name": "虎力大仙",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H025",
+    "name": "鹿力大仙",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H026",
+    "name": "文殊菩萨",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H027",
+    "name": "普贤菩萨",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H028",
+    "name": "镇元大仙",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H029",
+    "name": "如来佛祖",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H030",
+    "name": "观音菩萨",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H031",
+    "name": "托塔李天王",
+    "element": "土",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H032",
+    "name": "唐僧",
+    "element": "金",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H033",
+    "name": "沙和尚",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H034",
+    "name": "黑熊精",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H035",
+    "name": "白象精",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H036",
+    "name": "灵感大王",
+    "element": "水",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H037",
+    "name": "羊力大仙",
+    "element": "木",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  },
+  {
+    "id": "H038",
+    "name": "赛太岁",
+    "element": "火",
+    "files": [
+      "avatar-512.png",
+      "card-v3.png"
+    ]
+  }
+]);
+
+export const ELEMENTS = [...new Set(HEROES.map((h) => h.element))];
