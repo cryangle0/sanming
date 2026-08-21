@@ -139,7 +139,7 @@
 .review-card ol { margin: 0; padding-left: 20px; line-height: 1.8; }
 
 .play-stage {
-  height: calc(100vh - var(--mast-height) - 200px);
+  height: calc(100dvh - 180px);
   min-height: 360px;
   border: 1px solid var(--line);
   background: #0a3434;

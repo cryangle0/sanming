@@ -19,7 +19,7 @@ export function mountShell(root) {
 
   root.append(
     el('a', { class: 'skip-link', href: '#view', text: '跳到内容' }),
-    el('header', { class: 'masthead' }, [
+    el('aside', { class: 'life-rail' }, [
       el('a', { class: 'brand', href: '#/home' }, [
         el('span', { class: 'brand__seal', 'aria-hidden': 'true', text: '命' }),
         el('span', { class: 'brand__copy' }, [
@@ -27,16 +27,18 @@ export function mountShell(root) {
           el('small', { text: APP_SUBTITLE })
         ])
       ]),
-      el('p', { class: 'masthead__hint', text: '按 / 或 Ctrl+K 快速跳转 · 专给设计评审' }),
-      el('button', {
-        class: 'ghost-btn',
-        type: 'button',
-        'aria-label': '打开快速跳转',
-        text: '跳转',
-        onclick: () => document.dispatchEvent(new CustomEvent('sanming:palette'))
-      })
+      nav,
+      el('div', { class: 'life-rail__tools' }, [
+        el('button', {
+          class: 'ghost-btn',
+          type: 'button',
+          'aria-label': '打开快速跳转',
+          text: '跳转',
+          onclick: () => document.dispatchEvent(new CustomEvent('sanming:palette'))
+        }),
+        el('p', { class: 'life-rail__hint', text: '/ 或 Ctrl+K' })
+      ])
     ]),
-    nav,
     el('main', { id: 'view', class: 'view', tabindex: '-1' })
   );
 
