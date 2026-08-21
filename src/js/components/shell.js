@@ -27,17 +27,7 @@ export function mountShell(root) {
           el('small', { text: APP_SUBTITLE })
         ])
       ]),
-      nav,
-      el('div', { class: 'life-rail__tools' }, [
-        el('button', {
-          class: 'ghost-btn',
-          type: 'button',
-          'aria-label': '打开快速跳转',
-          text: '跳转',
-          onclick: () => document.dispatchEvent(new CustomEvent('sanming:palette'))
-        }),
-        el('p', { class: 'life-rail__hint', text: '/ 或 Ctrl+K' })
-      ])
+      nav
     ]),
     el('main', { id: 'view', class: 'view', tabindex: '-1' })
   );
